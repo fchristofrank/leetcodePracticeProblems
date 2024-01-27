@@ -1,0 +1,50 @@
+#Merge sort Principle
+
+counter = 0
+def mergeSort(arr):
+    n = len(arr)
+    if (n>1):
+        leftArray = mergeSort(arr[:n//2])
+        rightArray = mergeSort(arr[n//2:n])
+        
+        l=m=0
+        while (l<len(leftArray) and m<len(rightArray)):
+            if (leftArray[l]>rightArray[m]):
+                global counter 
+                counter += (len(leftArray)-l)
+                m += 1
+            else:
+                l += 1
+        
+        newMergedArray = []
+        #Merge the Arrays based on value
+        i = 0
+        j = 0
+        n1 = len(leftArray)
+        n2 = len(rightArray)
+        print(n1,n2)
+
+        while (i<n1 and j<n2):
+            if (leftArray[i] < rightArray[j]):
+                newMergedArray.append(leftArray[i])
+                i = i+1
+            else:
+                newMergedArray.append(rightArray[j])
+                j = j+1
+        
+        #Remaining Elements in Left Array
+        while (i<n1):
+            newMergedArray.append(leftArray[i])
+            i = i+1
+        
+        while (j<n2):
+            newMergedArray.append(rightArray[j])
+            j = j+1     
+
+        arr = newMergedArray 
+    print(arr)
+    return arr
+
+mergeSort([5,3,2,1,8])
+global counter
+print(counter)
