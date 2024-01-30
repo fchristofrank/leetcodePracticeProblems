@@ -1,1 +1,20 @@
+#Maximum Product SubArray
+import sys
 
+arr = [3,1,2,0,-1,-5,-4,-6]
+n = len(arr)
+
+result = -sys.maxsize
+product = 1
+for i in range(n):
+    product *= arr[i]
+    result = max(result, product)
+    if product == 0: product = 1
+    
+product = 1
+for i in range(n):
+    product *= arr[n-i-1]
+    result = max(result, product)
+    if product == 0: product = 1
+        
+print(result)
