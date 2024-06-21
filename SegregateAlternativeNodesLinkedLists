@@ -1,0 +1,82 @@
+class Node:
+    def __init__(self,data):
+        self.data = data
+        self.next = None
+        
+class LinkedList:
+    def __init__(self):
+        self.headNode = None
+        
+    def insert(self,node):
+        
+        if self.headNode is None:
+            self.headNode = node
+        else:
+            temp = self.headNode
+            while (temp.next is not None):
+                temp = temp.next
+            temp.next = node
+            
+    def printList(self,head):
+        if head is None:
+            temp = self.headNode
+        else:
+            temp = head
+        while (temp is not None):
+            print(temp.data)
+            temp = temp.next
+            
+    def segregate(self):
+                  
+        head1 = self.headNode
+        head2 = self.headNode.next
+        
+        temp1 = head1
+        temp2 = head2
+        
+        count = 2
+        temp = head2.next
+        
+        while (temp is not None):
+            
+            if (count%2 == 0):
+                temp1.next = temp
+                temp1 = temp
+            else:
+                temp2.next = temp
+                temp2 = temp
+
+            temp = temp.next
+            count += 1
+        
+        temp1.next = None
+        temp2.next = None
+        
+            
+        return head1, head2
+        
+            
+        
+
+                
+                
+        
+        
+list = LinkedList()
+print("Insert")
+list.insert(Node(10))
+list.insert(Node(20))
+list.insert(Node(30))
+list.insert(Node(40))
+list.insert(Node(50))
+list.insert(Node(60))
+list.insert(Node(70))
+list.insert(Node(80))
+
+
+#list.printList()
+head1,head2 = list.segregate()
+
+list.printList(head1)
+print()
+list.printList(head2)
