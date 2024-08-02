@@ -1,0 +1,82 @@
+class Solution:
+
+    def isSafe(matrix,i,j,n):
+    
+        #Check Horizontally
+        if matrix[i].count("Q") > 0:
+            return False
+        
+        #Check Vertically
+        for col in range(n):
+            if (matrix[col][j] == "Q"):
+                return False
+        
+        #Diagonal1 (Left -> Go UP)
+        itrRow = i
+        itrCol = j
+        while (itrRow>=0 and itrCol>=0):
+            if matrix[itrRow][itrCol] == "Q":
+                return False
+            itrRow -= 1
+            itrCol -= 1
+            
+        #Diagonal1 (Right -> Go Down)
+        itrRow = i+1
+        itrCol = j+1
+        while (itrRow<n and itrCol<n):
+            if matrix[itrRow][itrCol] == "Q":
+                return False
+            itrRow += 1
+            itrCol += 1
+        
+        
+        #Diagonal2 (Left -> Go Down)
+        itrRow = i+1
+        itrCol = j-1
+        while (itrRow<n and itrCol>=0):
+            if matrix[itrRow][itrCol] == "Q":
+                return False
+            itrRow += 1
+            itrCol -= 1
+        
+        #Diagonal2 (Right -> Go Up)
+        itrRow = i-1
+        itrCol = j+1
+        while (itrRow>=0 and itrCol<n):
+            if matrix[itrRow][itrCol] == "Q":
+                return False
+            itrRow -= 1
+            itrCol += 1
+    
+    return True
+
+    def traverseMatrix(result,matrix,n,N):
+
+        for i in range(1,n):
+            for j in range(0,n):
+                if (N == 0):
+                    result.append(matrix)
+                    break
+                
+                if (isSafe(matrix,i,j,n)):
+                    N -= 1
+                    matrix[i][j] = "Q"
+                    break
+
+        if (N == 0):
+            result.append(matrix)
+        return result
+
+
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        N = n #Number of Queens
+        result = []
+        #place First Row Queens
+        for i in range(n):
+            
+            #Create Matrix
+            matrix = [["."] * n for _ in range(n)]
+            matrix[0][i] = "Q"
+            result = traverseMatrix(result,matrix,n,N-1)
+        return result
+        
